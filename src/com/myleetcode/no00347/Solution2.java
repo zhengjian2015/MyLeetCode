@@ -1,6 +1,5 @@
 package com.myleetcode.no00347;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;

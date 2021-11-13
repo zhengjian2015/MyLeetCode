@@ -1,4 +1,4 @@
-package com.myleetcode.no0021;
+package com.myleetcode.no00021;
 
 /**
  * 21 这题还是没做出来，看答案还是挺简单的
