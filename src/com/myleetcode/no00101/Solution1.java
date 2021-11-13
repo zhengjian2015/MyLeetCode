@@ -1,10 +1,6 @@
-package com.myleetcode.no00104;
+package com.myleetcode.no00101;
 
-/**
- * 这种简单题目 要思考非递归该 怎么做了
- *
- */
-public class Soultion1 {
+public class Solution1 {
     private class TreeNode {
         int val;
         TreeNode left;
@@ -24,12 +20,7 @@ public class Soultion1 {
         }
     }
 
-    public int maxDepth(TreeNode root) {
-        if(root == null) {
-            return 0;
-        }
-        return Math.min(maxDepth(root.left),maxDepth(root.right)) + 1;
+    public boolean isSymmetric(TreeNode root) {
+       return true;
     }
-
-
 }
