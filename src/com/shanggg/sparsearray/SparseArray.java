@@ -55,7 +55,7 @@ public class SparseArray {
         //将稀疏数组 --> 恢复成 原始的二维数组
         int chessArr2[][] = new int[sparseArr[0][0]][sparseArr[0][0]];
 
-        for(int i = 1; i < sparseArr.length; i++) {
+        for (int i = 1; i < sparseArr.length; i++) {
             chessArr2[sparseArr[i][0]][sparseArr[i][1]] = sparseArr[i][2];
         }
 
@@ -65,7 +65,7 @@ public class SparseArray {
 
         for (int[] row : chessArr2) {
             for (int data : row) {
-                System.out.printf("%d\t",data);
+                System.out.printf("%d\t", data);
             }
             System.out.println();
         }
