@@ -125,6 +125,18 @@ class CircleArray {
     }
 
     //当前有效数据个数
+
+    /**
+     *
+     * 当 rear > front
+     * size  =  rear - front
+     *
+     * 当 rear < front
+     * rear+1 + maxsize - front - 1 = rear +maxsize - front
+     *
+     * 合并成 (rear+maxsize-front) % maxsize
+     * @return
+     */
     public int size() {
         //rear=1
         //front=0
