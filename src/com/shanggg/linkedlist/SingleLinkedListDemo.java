@@ -12,11 +12,27 @@ public class SingleLinkedListDemo {
         //创建链表
         SingleLinkedList singleLinkedList = new SingleLinkedList();
         //加入
-        singleLinkedList.add(hero1);
+       /* singleLinkedList.add(hero1);
         singleLinkedList.add(hero2);
         singleLinkedList.add(hero3);
-        singleLinkedList.add(hero4);
+        singleLinkedList.add(hero4);*/
+
+        singleLinkedList.addByOrder(hero1);
+        singleLinkedList.addByOrder(hero1);
+        singleLinkedList.addByOrder(hero4);
+        singleLinkedList.addByOrder(hero3);
+        singleLinkedList.addByOrder(hero2);
+        singleLinkedList.addByOrder(hero2);
         //显示一把
+        singleLinkedList.list();
+
+        System.out.println("修改后的");
+        HeroNode newHero = new HeroNode(2,"卢员外","豹子头");
+        singleLinkedList.update(newHero);
+        singleLinkedList.list();
+
+        singleLinkedList.del(1);
+        System.out.println("删除后的");
         singleLinkedList.list();
     }
 }
@@ -64,6 +80,68 @@ class SingleLinkedList {
             //往后移
             temp = temp.next;
         }
+    }
+
+
+    public void addByOrder(HeroNode heroNode) {
+
+        HeroNode temp = head;
+
+        while (true) {
+            if(temp.next == null) {
+                break;
+            }
+            if(temp.next.no > heroNode.no) {
+                break;
+            } else if(temp.next.no == heroNode.no) {
+                System.out.println(heroNode.no+"该英雄序号已存在,不能插入");
+                return;
+            }
+            temp = temp.next;
+        }
+        heroNode.next = temp.next;
+        temp.next = heroNode;
+    }
+
+    //修改节点信息，根据no编号来修改，即no编号不能改
+    public void update(HeroNode newHeroNode) {
+
+        if(head.next == null) {
+            System.out.println("链表为空~");
+            return;
+        }
+
+        HeroNode temp = head.next;
+        while (true) {
+            if(temp == null) {
+                break;
+            }
+            if(temp.no == newHeroNode.no) {
+                temp.name = newHeroNode.name;
+                temp.nickName = newHeroNode.nickName;
+            }
+            temp = temp.next;
+        }
+    }
+
+
+    //删除节点
+    public void del(int no) {
+        if(head.next == null) {
+            System.out.println("链表为空");
+            return;
+        }
+        HeroNode temp = head;
+        while (true) {
+            if(temp.next == null) {
+                break;
+            }
+            if(temp.next.no == no) {
+                temp.next = temp.next.next;
+            } else {
+                temp = temp.next;
+            }
+         }
     }
 }
 
