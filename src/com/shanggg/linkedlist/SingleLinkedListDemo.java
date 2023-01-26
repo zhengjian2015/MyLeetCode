@@ -17,7 +17,7 @@ public class SingleLinkedListDemo {
         singleLinkedList.add(hero3);
         singleLinkedList.add(hero4);
         System.out.println(SingleLinkedList.getLength(singleLinkedList.getHead()));
-        singleLinkedList.addByOrder(hero1);
+        /*singleLinkedList.addByOrder(hero1);
         singleLinkedList.addByOrder(hero1);
         singleLinkedList.addByOrder(hero4);
         singleLinkedList.addByOrder(hero3);
@@ -34,7 +34,10 @@ public class SingleLinkedListDemo {
         singleLinkedList.del(1);
         System.out.println("删除后的");
         singleLinkedList.list();
-        System.out.println(SingleLinkedList.getLength(singleLinkedList.getHead()));
+        System.out.println(SingleLinkedList.getLength(singleLinkedList.getHead()));*/
+        System.out.println("反转后的");
+        SingleLinkedList.reserveHead(singleLinkedList.getHead());
+        singleLinkedList.list();
     }
 }
 
@@ -171,6 +174,26 @@ class SingleLinkedList {
         return length;
     }
 
+
+    public static void reserveHead(HeroNode head) {
+        //如果当前链表为空，或者只有一个节点，无需反转，直接返回
+        if(head.next == null || head.next.next == null) {
+            return;
+        }
+        //定义一个辅助的指针(变量),帮助我们遍历原来的链表
+        HeroNode cur = head.next;
+        HeroNode next= null;
+        HeroNode reserveHead = new HeroNode(0,"","");
+        //从头到尾遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reserveHead的最前端
+        while (cur != null) {
+            next = cur.next; //临时保存一下 后面需要使用
+            cur.next = reserveHead.next;  //将cur的下一个节点指向新的链表的最前端
+            reserveHead.next = cur;
+            cur = next;  //让cur 后移动
+        }
+        head.next = reserveHead.next;
+
+    }
 
 }
 
