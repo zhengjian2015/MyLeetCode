@@ -1,5 +1,7 @@
 package com.shanggg.linkedlist;
 
+import java.util.Stack;
+
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
         //进行测试
@@ -35,9 +37,11 @@ public class SingleLinkedListDemo {
         System.out.println("删除后的");
         singleLinkedList.list();
         System.out.println(SingleLinkedList.getLength(singleLinkedList.getHead()));*/
-        System.out.println("反转后的");
+        /*System.out.println("反转后的");
         SingleLinkedList.reserveHead(singleLinkedList.getHead());
-        singleLinkedList.list();
+        singleLinkedList.list();*/
+
+        SingleLinkedList.reservePrint(singleLinkedList.getHead());
     }
 }
 
@@ -193,6 +197,23 @@ class SingleLinkedList {
         }
         head.next = reserveHead.next;
 
+    }
+
+    //逆序打印 ，使用栈的方法
+    public static void reservePrint(HeroNode head) {
+        if(head.next == null) {
+            return;
+        }
+        //
+        Stack<HeroNode> stack = new Stack<>();
+        HeroNode cur = head.next;
+        while (cur != null) {
+            stack.add(cur);
+            cur = cur.next;
+        }
+        while (stack.size() > 0) {
+            System.out.println(stack.pop());
+        }
     }
 
 }
