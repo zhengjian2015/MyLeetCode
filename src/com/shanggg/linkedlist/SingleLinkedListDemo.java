@@ -41,7 +41,11 @@ public class SingleLinkedListDemo {
         SingleLinkedList.reserveHead(singleLinkedList.getHead());
         singleLinkedList.list();*/
 
-        SingleLinkedList.reservePrint(singleLinkedList.getHead());
+        //SingleLinkedList.reservePrint(singleLinkedList.getHead());
+
+        System.out.println("反转后的");
+        SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,2);
+        singleLinkedList.list();
     }
 }
 
@@ -197,6 +201,43 @@ class SingleLinkedList {
         }
         head.next = reserveHead.next;
 
+    }
+
+    public static void reserveHead(HeroNode head,int left ,int right) {
+        //如果当前链表为空，或者只有一个节点，无需反转，直接返回
+        if(head.next == null || head.next.next == null) {
+            return;
+        }
+        //定义一个辅助的指针(变量),帮助我们遍历原来的链表
+        HeroNode cur = head.next;
+        HeroNode next= null;
+        HeroNode reserveHead = new HeroNode(0,"","");
+        HeroNode temp = reserveHead;
+        int i = 1;
+        //从头到尾遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reserveHead的最前端
+        while (cur != null) {
+            //System.out.println(temp.next != null ? temp.next.no : "ss");
+            if(i >= left && i <= right) {
+                next = cur.next; //临时保存一下 后面需要使用
+                cur.next = reserveHead.next;  //将cur的下一个节点指向新的链表的最前端
+                reserveHead.next = cur;
+                cur = next;  //让cur 后移动
+                //temp = temp.next;
+            } else {
+                System.out.println(temp.no);
+                next = cur.next;
+                temp.next = cur;
+                cur = next;
+                //temp = temp.next;
+            }
+            System.out.println("i"+i);
+            System.out.println(temp.no);
+            if(temp.next != null) {
+                temp = temp.next;
+            }
+            i++;
+        }
+        head.next = reserveHead.next;
     }
 
     //逆序打印 ，使用栈的方法
