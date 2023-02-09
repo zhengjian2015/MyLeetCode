@@ -10,7 +10,7 @@ public class SingleLinkedListDemo {
         HeroNode hero2 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode hero3 = new HeroNode(3, "吴用", "智多星");
         HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
-        HeroNode hero5 = new HeroNode(5, "林冲2", "豹子头2");
+        //HeroNode hero5 = new HeroNode(5, "林冲2", "豹子头2");
 
         //创建链表
         SingleLinkedList singleLinkedList = new SingleLinkedList();
@@ -19,7 +19,7 @@ public class SingleLinkedListDemo {
         singleLinkedList.add(hero2);
         singleLinkedList.add(hero3);
         singleLinkedList.add(hero4);
-        singleLinkedList.add(hero5);
+        //singleLinkedList.add(hero5);
         System.out.println(SingleLinkedList.getLength(singleLinkedList.getHead()));
         singleLinkedList.list();
         /*singleLinkedList.addByOrder(hero1);
@@ -47,7 +47,7 @@ public class SingleLinkedListDemo {
         //SingleLinkedList.reservePrint(singleLinkedList.getHead());
 
         System.out.println("反转后的");
-        SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,4);
+        SingleLinkedList.reserveHead(singleLinkedList.getHead(),2,4);
         singleLinkedList.list();
     }
 }
@@ -236,6 +236,7 @@ class SingleLinkedList {
                     }
                 }
                 next = cur.next;
+                cur.next = null;
                 temp.next = cur;
                 cur = next;
                 temp = temp.next;
