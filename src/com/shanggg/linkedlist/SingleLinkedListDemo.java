@@ -10,6 +10,7 @@ public class SingleLinkedListDemo {
         HeroNode hero2 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode hero3 = new HeroNode(3, "吴用", "智多星");
         HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
+        HeroNode hero5 = new HeroNode(5, "林冲2", "豹子头2");
 
         //创建链表
         SingleLinkedList singleLinkedList = new SingleLinkedList();
@@ -18,7 +19,9 @@ public class SingleLinkedListDemo {
         singleLinkedList.add(hero2);
         singleLinkedList.add(hero3);
         singleLinkedList.add(hero4);
+        singleLinkedList.add(hero5);
         System.out.println(SingleLinkedList.getLength(singleLinkedList.getHead()));
+        singleLinkedList.list();
         /*singleLinkedList.addByOrder(hero1);
         singleLinkedList.addByOrder(hero1);
         singleLinkedList.addByOrder(hero4);
@@ -44,7 +47,7 @@ public class SingleLinkedListDemo {
         //SingleLinkedList.reservePrint(singleLinkedList.getHead());
 
         System.out.println("反转后的");
-        SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,2);
+        SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,4);
         singleLinkedList.list();
     }
 }
@@ -218,21 +221,23 @@ class SingleLinkedList {
         while (cur != null) {
             //System.out.println(temp.next != null ? temp.next.no : "ss");
             if(i >= left && i <= right) {
+                System.out.println("kk");
                 next = cur.next; //临时保存一下 后面需要使用
-                cur.next = reserveHead.next;  //将cur的下一个节点指向新的链表的最前端
-                reserveHead.next = cur;
+                cur.next = temp.next;  //将cur的下一个节点指向新的链表的最前端
+                temp.next = cur;
                 cur = next;  //让cur 后移动
                 //temp = temp.next;
             } else {
-                System.out.println(temp.no);
+                if(i > right) {
+                    for (int k = 0; k < right - left + 1; k++) {
+                        temp = temp.next;
+                        System.out.println("ggll");
+                        System.out.println(temp.no);
+                    }
+                }
                 next = cur.next;
                 temp.next = cur;
                 cur = next;
-                //temp = temp.next;
-            }
-            System.out.println("i"+i);
-            System.out.println(temp.no);
-            if(temp.next != null) {
                 temp = temp.next;
             }
             i++;
