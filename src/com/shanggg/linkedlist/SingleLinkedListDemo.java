@@ -47,7 +47,7 @@ public class SingleLinkedListDemo {
         //SingleLinkedList.reservePrint(singleLinkedList.getHead());
 
         System.out.println("反转后的");
-        SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,4);
+        SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,2);
         singleLinkedList.list();
     }
 }
@@ -206,9 +206,21 @@ class SingleLinkedList {
 
     }
 
+    /**
+     *
+     * 终于平自己的努力做出了链表的中等题，值得纪念
+     * 思路就是 基于 反转链表1的思路
+     * 新链表， 把旧链表逐一遍历 ，left-right之间还是老思路，但是小于left和大于right的就正常拼接
+     * 需要主要<left 不需要把头结点往后移
+     * 但是大于right 的需要把头节点移到最后，再拼接
+     * 同时正常拼接 需要把 cur.next = null,否则有链表里有环
+     * @param head
+     * @param left
+     * @param right
+     */
     public static void reserveHead(HeroNode head,int left ,int right) {
         //如果当前链表为空，或者只有一个节点，无需反转，直接返回
-        if(head.next == null || head.next.next == null) {
+        if(head.next == null || head.next.next == null || left >= right ) {
             return;
         }
         //定义一个辅助的指针(变量),帮助我们遍历原来的链表
@@ -221,21 +233,18 @@ class SingleLinkedList {
         while (cur != null) {
             //System.out.println(temp.next != null ? temp.next.no : "ss");
             if(i >= left && i <= right) {
-                System.out.println("kk");
+                System.out.println("kk"+i);
                 next = cur.next; //临时保存一下 后面需要使用
                 cur.next = temp.next;  //将cur的下一个节点指向新的链表的最前端
                 temp.next = cur;
                 cur = next;  //让cur 后移动
                 //temp = temp.next;
             } else {
-                if(i > right) {
-                    for (int k = 0; k < right - left + 1; k++) {
-                        temp = temp.next;
-                        System.out.println("ggll");
-                        System.out.println(temp.no);
-                    }
+                while(temp.next != null) {
+                    temp = temp.next;
                 }
                 next = cur.next;
+                cur.next = null;
                 temp.next = cur;
                 cur = next;
                 temp = temp.next;
