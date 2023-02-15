@@ -11,7 +11,7 @@ public class SingleLinkedListDemo {
         HeroNode hero3 = new HeroNode(3, "吴用", "智多星");
         HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
         HeroNode hero5 = new HeroNode(5, "林冲2", "豹子头2");
-
+        HeroNode hero6 = new HeroNode(6, "林冲3", "豹子头3");
         //创建链表
         SingleLinkedList singleLinkedList = new SingleLinkedList();
         //加入
@@ -20,6 +20,7 @@ public class SingleLinkedListDemo {
         singleLinkedList.add(hero3);
         singleLinkedList.add(hero4);
         singleLinkedList.add(hero5);
+        singleLinkedList.add(hero6);
         System.out.println(SingleLinkedList.getLength(singleLinkedList.getHead()));
         singleLinkedList.list();
         /*singleLinkedList.addByOrder(hero1);
@@ -49,7 +50,7 @@ public class SingleLinkedListDemo {
         System.out.println("反转后的");
         //SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,2);
         //singleLinkedList.list();
-        SingleLinkedList.reverseKGroup(singleLinkedList.getHead(), 2);
+        SingleLinkedList.reverseKGroup(singleLinkedList.getHead(), 5);
         singleLinkedList.list();
     }
 }
@@ -278,6 +279,7 @@ class SingleLinkedList {
             temp = temp.next;
             n++;
         }
+        System.out.println("n:"+n);
         if (n == k) {
             while (cur != null) {
                 HeroNode next = cur.next;
@@ -313,7 +315,8 @@ class SingleLinkedList {
                         dummyHead = dummyHead.next;
                     }
                     dummyHead.next = cur;
-                    cur.next = null;
+                    if(cur != null)
+                        cur.next = null;
                     cur = next;
                     dummyHead = dummyHead.next;
                     g++;
