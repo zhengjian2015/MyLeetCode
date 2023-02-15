@@ -258,6 +258,13 @@ class SingleLinkedList {
     }
 
 
+    /**
+     * 结合上面两个例子后。leetcode这道最难题也做出来了
+     * 调式难点是  g < m 和 g >= m
+     *
+     * @param head
+     * @param k
+     */
     public static void reverseKGroup(HeroNode head, int k) {
         if (head == null || head.next == null) {
             return;
@@ -271,7 +278,6 @@ class SingleLinkedList {
             temp = temp.next;
             n++;
         }
-        System.out.println("节点数目" + n);
         if (n == k) {
             while (cur != null) {
                 HeroNode next = cur.next;
@@ -282,7 +288,6 @@ class SingleLinkedList {
             head.next = reserveHead.next;
         }
         int g = 0; //记录当前编号
-        int g2 = 0;
 
         if (n > k) {
             int m = (n / k) * k; //最后头节点的落点编号
@@ -290,22 +295,23 @@ class SingleLinkedList {
             while (cur != null) {
                 HeroNode next = cur.next;
 
-                if (g <= m) {
-                    if (g % k != 0 || g == 0) {
-                        cur.next = dummyHead.next;
-                        dummyHead.next = cur;
-                        cur = next;
-                        g++;
-                    } else if(g % k == 0) {
-                        int g3 = 0;
-                        while(dummyHead.next != null) {
+                if (g < m) {
+
+                    if(g % k == 0) {
+                        while (dummyHead.next != null) {
                             dummyHead = dummyHead.next;
-                            g3++;
                         }
-                        g++;
                     }
+                    cur.next = dummyHead.next;
+                    dummyHead.next = cur;
+                    cur = next;
+
+                    g++;
                 }
-                if (g > m) {
+                if (g >= m) {
+                    while (dummyHead.next != null) {
+                        dummyHead = dummyHead.next;
+                    }
                     dummyHead.next = cur;
                     cur.next = null;
                     cur = next;
