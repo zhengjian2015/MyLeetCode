@@ -47,7 +47,9 @@ public class SingleLinkedListDemo {
         //SingleLinkedList.reservePrint(singleLinkedList.getHead());
 
         System.out.println("反转后的");
-        SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,2);
+        //SingleLinkedList.reserveHead(singleLinkedList.getHead(),1,2);
+        //singleLinkedList.list();
+        SingleLinkedList.reverseKGroup(singleLinkedList.getHead(), 2);
         singleLinkedList.list();
     }
 }
@@ -164,6 +166,7 @@ class SingleLinkedList {
     }
 
     //方法，获取到单链表节点的个数(如果是带头节点的链表，需要不统计头节点)
+
     /**
      * @param head 链表的头节点
      * @return
@@ -188,13 +191,13 @@ class SingleLinkedList {
 
     public static void reserveHead(HeroNode head) {
         //如果当前链表为空，或者只有一个节点，无需反转，直接返回
-        if(head.next == null || head.next.next == null) {
+        if (head.next == null || head.next.next == null) {
             return;
         }
         //定义一个辅助的指针(变量),帮助我们遍历原来的链表
         HeroNode cur = head.next;
-        HeroNode next= null;
-        HeroNode reserveHead = new HeroNode(0,"","");
+        HeroNode next = null;
+        HeroNode reserveHead = new HeroNode(0, "", "");
         //从头到尾遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reserveHead的最前端
         while (cur != null) {
             next = cur.next; //临时保存一下 后面需要使用
@@ -207,40 +210,40 @@ class SingleLinkedList {
     }
 
     /**
-     *
      * 终于平自己的努力做出了链表的中等题，值得纪念
      * 思路就是 基于 反转链表1的思路
      * 新链表， 把旧链表逐一遍历 ，left-right之间还是老思路，但是小于left和大于right的就正常拼接
      * 需要主要<left 不需要把头结点往后移
      * 但是大于right 的需要把头节点移到最后，再拼接
      * 同时正常拼接 需要把 cur.next = null,否则有链表里有环
+     *
      * @param head
      * @param left
      * @param right
      */
-    public static void reserveHead(HeroNode head,int left ,int right) {
+    public static void reserveHead(HeroNode head, int left, int right) {
         //如果当前链表为空，或者只有一个节点，无需反转，直接返回
-        if(head.next == null || head.next.next == null || left >= right ) {
+        if (head.next == null || head.next.next == null || left >= right) {
             return;
         }
         //定义一个辅助的指针(变量),帮助我们遍历原来的链表
         HeroNode cur = head.next;
-        HeroNode next= null;
-        HeroNode reserveHead = new HeroNode(0,"","");
+        HeroNode next = null;
+        HeroNode reserveHead = new HeroNode(0, "", "");
         HeroNode temp = reserveHead;
         int i = 1;
         //从头到尾遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reserveHead的最前端
         while (cur != null) {
             //System.out.println(temp.next != null ? temp.next.no : "ss");
-            if(i >= left && i <= right) {
-                System.out.println("kk"+i);
+            if (i >= left && i <= right) {
+                System.out.println("kk" + i);
                 next = cur.next; //临时保存一下 后面需要使用
                 cur.next = temp.next;  //将cur的下一个节点指向新的链表的最前端
                 temp.next = cur;
                 cur = next;  //让cur 后移动
                 //temp = temp.next;
             } else {
-                while(temp.next != null) {
+                while (temp.next != null) {
                     temp = temp.next;
                 }
                 next = cur.next;
@@ -254,9 +257,70 @@ class SingleLinkedList {
         head.next = reserveHead.next;
     }
 
+
+    public static void reverseKGroup(HeroNode head, int k) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        HeroNode reserveHead = new HeroNode(0, "", "");
+        HeroNode temp = head.next;
+        HeroNode cur = head.next;
+        HeroNode dummyHead = reserveHead;
+        int n = 0;
+        while (temp != null) {
+            temp = temp.next;
+            n++;
+        }
+        System.out.println("节点数目" + n);
+        if (n == k) {
+            while (cur != null) {
+                HeroNode next = cur.next;
+                cur.next = reserveHead.next;
+                reserveHead.next = cur;
+                cur = next;
+            }
+            head.next = reserveHead.next;
+        }
+        int g = 0; //记录当前编号
+        int g2 = 0;
+
+        if (n > k) {
+            int m = (n / k) * k; //最后头节点的落点编号
+            //System.out.println(m);
+            while (cur != null) {
+                HeroNode next = cur.next;
+
+                if (g <= m) {
+                    if (g % k != 0 || g == 0) {
+                        cur.next = dummyHead.next;
+                        dummyHead.next = cur;
+                        cur = next;
+                        g++;
+                    } else if(g % k == 0) {
+                        int g3 = 0;
+                        while(dummyHead.next != null) {
+                            dummyHead = dummyHead.next;
+                            g3++;
+                        }
+                        g++;
+                    }
+                }
+                if (g > m) {
+                    dummyHead.next = cur;
+                    cur.next = null;
+                    cur = next;
+                    dummyHead = dummyHead.next;
+                    g++;
+                }
+            }
+            head.next = reserveHead.next;
+        }
+
+    }
+
     //逆序打印 ，使用栈的方法
     public static void reservePrint(HeroNode head) {
-        if(head.next == null) {
+        if (head.next == null) {
             return;
         }
         //
