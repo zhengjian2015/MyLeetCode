@@ -5,9 +5,7 @@ public class LinkedListStackDemo {
         LinkedListStack lst = new LinkedListStack();
         lst.push(2);
         lst.push(3);
-        System.out.println(lst.pop());
-        System.out.println(lst.pop());
-        System.out.println(lst.pop());
+        lst.list();
     }
 }
 
@@ -37,6 +35,17 @@ class LinkedListStack {
         }*/
         top = top.next;
         return res;
+    }
+
+    public void list() {
+        if (top.next == null) {
+            return;
+        }
+        ListNode temp = top.next;
+        while (temp != null) {
+            System.out.println(temp.val);
+            temp = temp.next;
+        }
     }
 }
 
