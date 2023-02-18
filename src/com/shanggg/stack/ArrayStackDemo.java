@@ -93,5 +93,4 @@ class ArrayStack {
             System.out.println();
         }
     }
-
 }
