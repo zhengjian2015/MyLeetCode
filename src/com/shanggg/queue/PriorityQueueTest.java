@@ -1,8 +1,6 @@
 package com.shanggg.queue;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 
 /**
@@ -41,7 +39,12 @@ public class PriorityQueueTest {
             System.out.println(q.poll());
         }
 */
-
+        Map<Integer,Integer> map = new HashMap<>();
+        Queue<Integer> queue2 = new PriorityQueue<Integer>((o1,o2)->{
+           int a1 = map.get(o1);
+           int a2 = map.get(o2);
+           return a1 - a2;
+        });
         //或者这种写法
         Queue<Integer> queue = new PriorityQueue<Integer>((o1,o2)->o2-o1);
         for(int i = 0 ; i < arr.length ; i++) {
