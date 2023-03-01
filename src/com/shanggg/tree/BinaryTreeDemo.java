@@ -9,13 +9,15 @@ public class BinaryTreeDemo {
         HeroNode node3 = new HeroNode(3, "卢俊义");
         HeroNode node4 = new HeroNode(4, "林冲");
         HeroNode node5 = new HeroNode(5, "吴用");
-
+        HeroNode node51 = new HeroNode(5, "吴用");
+        HeroNode node52 = new HeroNode(5, "吴用");
         //创建二叉树  后面用递归方式创建二叉树
         root.setLeft(node2);
         root.setRight(node3);
         node3.setLeft(node4);
         node3.setRight(node5);
-
+        node4.setLeft(node51);
+        node4.setLeft(node52);
         binaryTree.setRoot(root);
         System.out.println("前序遍历");
         binaryTree.preOrder();
@@ -27,8 +29,10 @@ public class BinaryTreeDemo {
         //binaryTree.postOrder();
         // binaryTree.invertTree(root);
         // binaryTree.preOrder();
-        HeroNode res = binaryTree.getChildNode(4);
-        System.out.println(res== null ? "不存在" : res);
+       // HeroNode res = binaryTree.getChildNode(4);
+        //System.out.println(res== null ? "不存在" : res);
+        binaryTree.delNode(5);
+        binaryTree.preOrder();
     }
 
 
@@ -85,6 +89,18 @@ class BinaryTree {
             return null;
         }
         return root.postOrderSearch(no);
+    }
+
+    public void delNode(int no) {
+        if(root != null) {
+            if(root.getNo() == no) {
+                root = null;
+            } else {
+                root.delNode(no);
+            }
+        } else {
+            System.out.println("空树");
+        }
     }
 
 }
@@ -173,6 +189,34 @@ class HeroNode {
             this.right.postOrder();
         }
         System.out.println(this);
+    }
+
+    /**
+     * 删除结点
+     * @param no
+     */
+    public void delNode(int no) {
+        if(this.left != null && this.left.no == no) {
+            this.left = null;
+            System.out.println("k");
+            //return;
+        }
+
+        if(this.right != null && this.right.no == no) {
+            this.right = null;
+            System.out.println("k0");
+            //return;
+        }
+
+        if(this.left != null) {
+            this.left.delNode(no);
+            System.out.println("k11");
+        }
+
+        if(this.right != null) {
+            System.out.println("k2");
+            this.right.delNode(no);
+        }
     }
 
     /**
