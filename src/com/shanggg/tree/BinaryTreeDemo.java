@@ -1,38 +1,43 @@
 package com.shanggg.tree;
 
+import java.util.Stack;
+
 public class BinaryTreeDemo {
     public static void main(String[] args) {
         BinaryTree binaryTree = new BinaryTree();
         //创建一颗二叉树
-        HeroNode root = new HeroNode(1, "宋江");
+        /*HeroNode root = new HeroNode(1, "宋江");
         HeroNode node2 = new HeroNode(2, "吴用");
         HeroNode node3 = new HeroNode(3, "卢俊义");
         HeroNode node4 = new HeroNode(4, "林冲");
         HeroNode node5 = new HeroNode(5, "吴用");
-        HeroNode node51 = new HeroNode(5, "吴用");
-        HeroNode node52 = new HeroNode(5, "吴用");
         //创建二叉树  后面用递归方式创建二叉树
         root.setLeft(node2);
         root.setRight(node3);
         node3.setLeft(node4);
         node3.setRight(node5);
-        node4.setLeft(node51);
-        node4.setLeft(node52);
         binaryTree.setRoot(root);
         System.out.println("前序遍历");
-        binaryTree.preOrder();
-        System.out.println(" ");
-        // System.out.println("中序遍历");
-        //binaryTree.infixOrder();
-        System.out.println(" ");
-        //System.out.println("后序遍历");
-        //binaryTree.postOrder();
-        // binaryTree.invertTree(root);
-        // binaryTree.preOrder();
-       // HeroNode res = binaryTree.getChildNode(4);
-        //System.out.println(res== null ? "不存在" : res);
-        binaryTree.delNode(5);
-        binaryTree.preOrder();
+       // binaryTree.preOrder();
+        System.out.println(" ");*/
+        //二叉搜索树
+        HeroNode root = new HeroNode(5,"定点");
+        HeroNode node0 = new HeroNode(1,"左1");
+        HeroNode node1 = new HeroNode(3,"左1");
+        HeroNode node2 = new HeroNode(2,"左1");
+        HeroNode node4 = new HeroNode(4,"左1");
+        root.setLeft(node1);
+        node1.setLeft(node2);
+        node2.setLeft(node0);
+        node1.setRight(node4);
+        HeroNode node7 = new HeroNode(7,"左1");
+        HeroNode node8 = new HeroNode(8,"左1");
+        HeroNode node9 = new HeroNode(9,"左1");
+        root.setRight(node8);
+        node8.setLeft(node7);
+        node8.setRight(node9);
+        binaryTree.setRoot(root);
+        binaryTree.postOrder2();
     }
 
 
@@ -60,6 +65,46 @@ class BinaryTree {
             this.root.infixOrder();
         } else {
             System.out.println("二叉树为空，无法遍历");
+        }
+    }
+
+    /**
+     * 栈的使用
+     */
+    public void infixOrder2(){
+        Stack<HeroNode> stack = new Stack<>();
+        HeroNode node = this.root;
+        while (node!=null || !stack.isEmpty()) {
+            if(node != null) {
+                System.out.println(node.getNo()); //前序遍历
+                stack.push(node);
+                node = node.getLeft();
+            } else {
+                HeroNode pop = stack.pop();
+               // System.out.println(pop.getNo()); //后序遍历
+                node = pop.getRight();
+            }
+        }
+    }
+
+    public void postOrder2() {
+        Stack<HeroNode> stack = new Stack<>();
+        HeroNode node = this.root;
+        HeroNode prev = null;
+        while (node != null || !stack.isEmpty() ) {
+            while (node != null) {
+                stack.add(node);
+                node = node.getLeft();
+            }
+            node = stack.pop();
+            if (node.getRight() == null || node.getRight() == prev) {
+                System.out.println(node.getNo());
+                prev = node;
+                node = null;
+            } else {
+                stack.push(node);
+                node = node.getRight();
+            }
         }
     }
 
