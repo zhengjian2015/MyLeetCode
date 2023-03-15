@@ -92,19 +92,22 @@ class BinaryTree {
         HeroNode node = this.root;
         HeroNode prev = null;
         while (node != null || !stack.isEmpty() ) {
-            while (node != null) {
-                stack.add(node);
-                node = node.getLeft();
-            }
-            node = stack.pop();
-            if (node.getRight() == null || node.getRight() == prev) {
-                System.out.println(node.getNo());
-                prev = node;
-                node = null;
-            } else {
-                stack.push(node);
-                node = node.getRight();
-            }
+           if(node != null) {
+               stack.add(node);
+               node = node.getLeft();
+           } else {
+               node = stack.peek();
+               if(node.getRight() == null || node.getRight() == prev) {
+                   System.out.println(node.getNo());
+                   prev = node;
+                   stack.pop();
+                   node = null;
+               } else {
+                   //stack.add(node);
+                   node = node.getRight();
+                   //stack.add(node);
+               }
+           }
         }
     }
 
