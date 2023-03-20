@@ -1,8 +1,11 @@
 package com.shanggg.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTreeDemo {
+    public static int a = 0;
     public static void main(String[] args) {
         BinaryTree binaryTree = new BinaryTree();
         //创建一颗二叉树
@@ -37,7 +40,12 @@ public class BinaryTreeDemo {
         node8.setLeft(node7);
         node8.setRight(node9);
         binaryTree.setRoot(root);
-        binaryTree.postOrder2();
+        binaryTree.levelOrder();
+    }
+
+    private int getM() {
+        a = 1;
+        return a;
     }
 
 
@@ -83,6 +91,25 @@ class BinaryTree {
                 HeroNode pop = stack.pop();
                // System.out.println(pop.getNo()); //后序遍历
                 node = pop.getRight();
+            }
+        }
+    }
+
+    /**
+     * 队列
+     * 层序遍历
+     */
+    public void levelOrder() {
+        Queue<HeroNode> queue = new LinkedList<>();
+        queue.add(this.root);
+        while (!queue.isEmpty()) {
+            HeroNode offNode = queue.poll();
+            System.out.println(offNode.getNo());
+            if(offNode.getLeft() != null) {
+                queue.add(offNode.getLeft());
+            }
+            if(offNode.getRight() != null) {
+                queue.add(offNode.getRight());
             }
         }
     }
