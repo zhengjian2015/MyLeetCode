@@ -68,6 +68,25 @@ class BinarySortTree {
                 } else if(parent.right != null && parent.right.value == value) {
                     parent.right = null;
                 }
+            } else if(targetNode.left != null && targetNode.right != null) {
+
+            } else {
+                //删除只有一颗子树的结点
+                //如果删除的结点有左子结点
+                if(targetNode.left != null ) {
+                    //如果target是parent的左子结点
+                    if(parent.left.value == value) {
+                        parent.left = targetNode.left;
+                    } else {
+                        parent.right = targetNode.left;
+                    }
+                } else {
+                    if(parent.left.value == value) {
+                        parent.left = targetNode.right;
+                    } else {
+                        parent.right = targetNode.right;
+                    }
+                }
             }
 
         }
