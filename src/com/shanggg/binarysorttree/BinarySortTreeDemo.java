@@ -45,6 +45,25 @@ class BinarySortTree {
         }
     }
 
+    /**
+     * 编写方法
+     *
+     *  二叉排序树的根结点
+     *  返回以node 为根结点的二叉排序树的最小结点的值
+     */
+    public int delRightTreeMin(Node node) {
+        Node target = node;
+        //循环的查找左结点，就会找到最小值
+        while(target.left != null) {
+            target = target.left;
+        }
+        //这时 target就指向了最小结点
+        //删除最小结点
+        delNode(target.value);
+        return target.value;
+    }
+
+
     //删除节点
     public void delNode(int value) {
         if (root == null) {
@@ -69,7 +88,8 @@ class BinarySortTree {
                     parent.right = null;
                 }
             } else if(targetNode.left != null && targetNode.right != null) {
-
+                int minValue = delRightTreeMin(targetNode.right);
+                targetNode.value = minValue;
             } else {
                 //删除只有一颗子树的结点
                 //如果删除的结点有左子结点
@@ -92,6 +112,7 @@ class BinarySortTree {
         }
     }
 }
+
 
 
 class Node {
